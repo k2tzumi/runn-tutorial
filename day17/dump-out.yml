@@ -1,0 +1,30 @@
+desc: レスポンスをdumpして外部json化する
+runners:
+  req: https://zenn.dev
+vars:
+  username: ${USER:-katzumi}
+  count: 2
+  order: "daily"
+  request: "json://articles.json"
+steps:
+  listArticles:
+    desc: "指定された件数分、記事一覧を取得します"
+    req:
+      /api/articles?username={{ vars.username }}&count={{ vars.count }}&order={{ vars.order }}:
+        get:
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 記事の件数が正しいこと
+      && len(current.res.body.articles) == vars.count
+  dumpArticles:
+    if: "exists json://articles.json"
+    dump:
+      expr: steps.listArticles.res.body
+      out: articles2.json
+  testArticles:
+    desc: "記事一覧が変わっていないことを検証する"
+    test: |
+      compare(steps.listArticles.res.body, vars.request)

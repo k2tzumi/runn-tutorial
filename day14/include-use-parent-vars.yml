@@ -1,0 +1,23 @@
+desc: include専用のシナリオを定義して親のvarsを引き継がせる
+runners:
+  req: https://zenn.dev
+vars:
+  username: "zenn"
+  count: 2
+  order: "daily"
+steps:
+  listArticles:
+    desc: "varsで指定された件数分、記事一覧を取得します"
+    include: include-list-articles.yml
+  showFirstArticle:
+    desc: "1番目の記事の詳細を取得します"
+    include:
+      path: show-article.yml
+      vars:
+        slug: "{{ steps.listArticles.articles[0].slug }}"
+  showSecondArticle:
+    desc: "2番目の記事の詳細を取得します"
+    include:
+      path: show-article.yml
+      vars:
+        slug: "{{ steps.listArticles.articles[1].slug }}"

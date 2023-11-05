@@ -1,0 +1,46 @@
+desc: 繰り返し参照するものは変数として束縛しましょう
+runners:
+  req: https://zenn.dev
+vars:
+  username: ${USER:-katzumi}
+  count: 2
+  order: "daily"
+steps:
+  listArticles:
+    desc: "指定された件数分、記事一覧を取得します"
+    req:
+      /api/articles?username={{ vars.username }}&count={{ vars.count }}&order={{ vars.order }}:
+        get:
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 記事の件数が正しいこと
+      && len(current.res.body.articles) == vars.count
+    bind:
+      articles: current.res.body.articles
+  showFirstArticle:
+    desc: "1番目の記事の詳細を取得します"
+    req:
+      /api/articles/{{ articles[0].slug }}:
+        get:
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 正しい記事のIDで取得できること
+      && steps.showFirstArticle.res.body.article.id == articles[0].id
+  showSecondArticle:
+    desc: "2番目の記事の詳細を取得します"
+    req:
+      /api/articles/{{ articles[1].slug }}:
+        get:
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 正しい記事のIDで取得できること
+      && steps.showSecondArticle.res.body.article.id == articles[1].id

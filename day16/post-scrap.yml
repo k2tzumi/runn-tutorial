@@ -1,0 +1,27 @@
+desc: JSONリクエストを送信するシナリオ
+runners:
+  req:
+    endpoint: https://zenn.dev
+    useCookie: true
+vars:
+  request:
+    title: "タイトル"
+  session: ${SESSION}
+  title_suffix: null
+steps:
+  postScrap:
+    desc: "スクラップ記事を登録します"
+    req:
+      /api/scraps:
+        post:
+          headers:
+            Cookie: "_zenn_session={{ vars.session }}"
+          body:
+            application/json: "{{ vars.request }}"
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 指定したタイトルのスクラップが作成されること
+      && current.res.body.scrap.title == vars.request.title
+    bind:
+      slug: current.res.body.scrap.slug

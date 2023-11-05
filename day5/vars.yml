@@ -1,0 +1,12 @@
+desc: 変数を使ってカスタマイズしやすくしましょう
+runners:
+  req: https://zenn.dev
+vars:
+  username: "zenn"
+steps:
+- desc: "変数で指定されたユーザーの記事一覧を取得します"
+  req:
+    /api/articles?username={{ vars.username }}&order=latest:
+      get:
+        body:
+          application/json: null
