@@ -1,0 +1,43 @@
+desc: DBに結果を格納する
+runners:
+  req: https://zenn.dev
+  local: sq://day20/dbname.sqlite3
+vars:
+  username: ${USER:-katzumi}
+  order: "daily"
+steps:
+  initSchame:
+    desc: "スキーマ作成"
+    include: init-db.yml
+  listArticles:
+    desc: "指定された件数分、記事一覧を取得します"
+    req:
+      /api/articles?username={{ vars.username }}&order={{ vars.order }}:
+        get:
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+    bind:
+      articles: current.res.body.articles
+  saveArticles:
+    desc: "記事をテーブルに保存する"
+    loop: len(articles)
+    local:
+      query: |
+        INSERT INTO
+            article (id, title, slug, article_type, liked_count)
+        VALUES
+            (
+                {{ articles[i].id }},
+                '{{ articles[i].title }}',
+                '{{ articles[i].slug }}',
+                '{{ articles[i].article_type }}',
+                {{ articles[i].liked_count }}
+            );
+  countLiked:
+    desc: "いいね数をカウントする"
+    local:
+      query: select sum(liked_count) as sum_likes from article;
+    dump: current.rows[0].sum_likes
