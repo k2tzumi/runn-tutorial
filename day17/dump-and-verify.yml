@@ -1,10 +1,11 @@
-desc: レスポンスをdumpして外部json化する
+desc: dumpしたjsonを検証する
 runners:
   req: https://zenn.dev
 vars:
   username: ${USER:-katzumi}
   count: 2
   order: "daily"
+  request: "json://articles.json"
 steps:
   listArticles:
     desc: "指定された件数分、記事一覧を取得します"
@@ -18,6 +19,5 @@ steps:
       current.res.status == 200
       # 記事の件数が正しいこと
       && len(current.res.body.articles) == vars.count
-    dump:
-      expr: current.res.body
-      out: articles.json
+      # dumpしたレスポンス（前回の結果）と同じこと
+      && compare(current.res.body, vars.request)
