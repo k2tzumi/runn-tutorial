@@ -1,4 +1,3 @@
-
 desc: includeしたシナリオの変数を変更して共通化させよう
 runners:
   req: https://zenn.dev
