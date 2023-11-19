@@ -1,0 +1,31 @@
+desc: 既存のシナリオから新しいシナリオを作成する
+runners:
+  req: https://zenn.dev
+steps:
+  listArticles:
+    desc: "指定された件数分、記事一覧を取得します"
+    include: list-articles.yml
+  showFirstArticle:
+    desc: "1番目の記事の詳細を取得します"
+    req:
+      /api/articles/{{ steps.listArticles.articles[0].slug }}:
+        get:
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 正しい記事のIDで取得できること
+      && steps.showFirstArticle.res.body.article.id == steps.listArticles.articles[0].id
+  showSecondArticle:
+    desc: "2番目の記事の詳細を取得します"
+    req:
+      /api/articles/{{ steps.listArticles.articles[1].slug }}:
+        get:
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 正しい記事のIDで取得できること
+      && steps.showSecondArticle.res.body.article.id == steps.listArticles.articles[1].id

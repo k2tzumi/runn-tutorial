@@ -1,0 +1,18 @@
+desc: 変数を受け取るシナリオを定義
+runners:
+  req: https://zenn.dev
+vars:
+  slug: "api-scenario-testing-with-runn"
+steps:
+  showArticle:
+    desc: "記事の詳細を取得します"
+    req:
+      /api/articles/{{ vars.slug }}:
+        get:
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 正しい記事のslugで取得できること
+      && current.res.body.article.slug == vars.slug

@@ -1,0 +1,42 @@
+desc: CDPを使ってブラウザ操作してみる
+runners:
+  cc: chrome://new
+vars:
+  keyword: ${KEYWORD:-PHP}
+steps:
+  startSearch:
+    desc: "検索アイコンをクリック"
+    cc:
+      actions:
+        - navigate: https://zenn.dev/
+        - click: '#header-search'
+        - waitVisible: '#input-search-form'
+        - location
+    test: |
+      current.url == "https://zenn.dev/search"
+  inputKeyword:
+    desc: "キーワードを入力してEnter"
+    cc:
+      actions:
+        - sendKeys:
+            sel: 'input[id=input-search-form]'
+            value: '{{ vars.keyword }}'
+        - wait:
+            time: '1sec'
+        - click: '#search-form > button'
+        - waitVisible: '#__next > div > div > section'
+        - location        
+    test:
+      current.url == "https://zenn.dev/search?q=" + vars.keyword
+  captureScreen:
+    desc: "スクリーンイメージをキャプチャする"
+    cc:
+      actions:
+        - wait:
+            time: '1sec'
+        - screenshot
+  saveScreenShot:
+    desc: 'スクリーンショットを保存する'
+    dump:
+      expr: steps.captureScreen.png
+      out: screenshot.png

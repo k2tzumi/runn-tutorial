@@ -1,0 +1,41 @@
+desc: ステップに名前をつけてフローを追いやすくしましょう(listのままの場合)
+runners:
+  req: https://zenn.dev
+vars:
+  username: ${USER:-katzumi}
+  count: 2
+  order: "daily"
+steps:
+  - desc: "指定された件数分、記事一覧を取得します"
+    req:
+      /api/articles?username={{ vars.username }}&count={{ vars.count }}&order={{ vars.order }}:
+        get:
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 記事の件数が正しいこと
+      && len(current.res.body.articles) == vars.count
+  - desc: "1番目の記事の詳細を取得します"
+    req:
+      /api/articles/{{ steps[0].res.body.articles[0].slug }}:
+        get:
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 正しい記事のIDで取得できること
+      && steps[1].res.body.article.id == steps[0].res.body.articles[0].id
+  - desc: "2番目の記事の詳細を取得します"
+    req:
+      /api/articles/{{ steps[0].res.body.articles[1].slug }}:
+        get:
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 正しい記事のIDで取得できること
+      && steps[2].res.body.article.id == steps[0].res.body.articles[1].id

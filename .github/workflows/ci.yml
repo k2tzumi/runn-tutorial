@@ -1,0 +1,29 @@
+name: CIのサンプル
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      httpbin:
+        image: kennethreitz/httpbin:latest
+        ports:
+          - 8080:80
+    steps:
+      - uses: actions/checkout@v4
+
+      -
+        uses: k2tzumi/runn-action@latest
+        with:
+          path_pattern: day22/github-action.yml
+        env:
+          HTTPBIN_END_POINT: http://172.17.0.1:8080/

@@ -1,0 +1,53 @@
+{
+  "articles": [
+    {
+      "article_type": "tech",
+      "body_letters_count": 10851,
+      "body_updated_at": "2022-09-20T07:27:45.059+09:00",
+      "comments_count": 0,
+      "emoji": "🧪",
+      "id": 115084,
+      "is_suspending_private": false,
+      "liked_count": 172,
+      "path": "/katzumi/articles/api-scenario-testing-with-runn",
+      "pinned": false,
+      "post_type": "Article",
+      "publication": null,
+      "published_at": "2022-09-20T00:29:27.454+09:00",
+      "slug": "api-scenario-testing-with-runn",
+      "source_repo_updated_at": "2022-09-20T07:27:45.046+09:00",
+      "title": "APIシナリオテストの新ツールrunn",
+      "user": {
+        "avatar_small_url": "https://res.cloudinary.com/zenn/image/fetch/s--O0GLM2Pk--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_70/https://storage.googleapis.com/zenn-user-upload/avatar/8fb0c88e62.jpeg",
+        "id": 1578,
+        "name": "katzumi",
+        "username": "katzumi"
+      }
+    },
+    {
+      "article_type": "tech",
+      "body_letters_count": 2018,
+      "body_updated_at": "2022-10-08T19:33:39.045+09:00",
+      "comments_count": 2,
+      "emoji": "⛔",
+      "id": 118740,
+      "is_suspending_private": false,
+      "liked_count": 134,
+      "path": "/katzumi/articles/using-concurrency-at-github-actions",
+      "pinned": false,
+      "post_type": "Article",
+      "publication": null,
+      "published_at": "2022-10-08T19:33:39.045+09:00",
+      "slug": "using-concurrency-at-github-actions",
+      "source_repo_updated_at": "2022-10-08T19:33:39.039+09:00",
+      "title": "GitHub Actionsで連続pushした時に止めるアレ",
+      "user": {
+        "avatar_small_url": "https://res.cloudinary.com/zenn/image/fetch/s--O0GLM2Pk--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_70/https://storage.googleapis.com/zenn-user-upload/avatar/8fb0c88e62.jpeg",
+        "id": 1578,
+        "name": "katzumi",
+        "username": "katzumi"
+      }
+    }
+  ],
+  "next_page": 2
+}

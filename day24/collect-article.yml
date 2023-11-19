@@ -1,0 +1,44 @@
+desc: 指定されたページの最新記事をDBに保存する
+runners:
+  req: https://zenn.dev
+  local: sq://day24/dbname.sqlite3
+vars:
+  topic: "{{ parent.vars.topic }}"
+  page: 1
+if: included
+steps:
+  initSchame:
+    desc: "スキーマ作成"
+    include: init-db.yml
+  listArticles:
+    desc: "varsで指定された件数分、記事一覧を取得します"
+    req:
+      /api/articles?topicname={{ vars.topic }}&order=latest&page={{ vars.page }}:
+        get:
+          body:
+    test: |
+      current.res.status == 200
+    bind:
+      articles: current.res.body.articles
+  saveArticles:
+    desc: "記事をテーブルに保存する"
+    loop: len(articles)
+    local:
+      query: |
+        INSERT INTO
+            article (id, title, slug, article_type, liked_count, published_at, path)
+        VALUES
+            (
+                {{ articles[i].id }},
+                '{{ articles[i].title }}',
+                '{{ articles[i].slug }}',
+                '{{ articles[i].article_type }}',
+                {{ articles[i].liked_count }},
+                '{{ articles[i].published_at }}',
+                '{{ articles[i].path }}'
+            );
+    test: |
+      current.last_insert_id == articles[i].id
+      && current.rows_affected == 1
+    bind:
+      latest_published_at: articles[i].published_at

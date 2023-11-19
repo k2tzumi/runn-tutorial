@@ -1,0 +1,35 @@
+desc: loopを利用して繰り返し処理を行う
+runners:
+  req: https://zenn.dev
+vars:
+  username: ${USER:-katzumi}
+  count: 3
+  order: "daily"
+steps:
+  listArticles:
+    desc: "指定された件数分、記事一覧を取得します"
+    req:
+      /api/articles?username={{ vars.username }}&count={{ vars.count }}&order={{ vars.order }}:
+        get:
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 記事の件数が正しいこと
+      && len(current.res.body.articles) == vars.count
+    bind:
+      articles: current.res.body.articles
+  showAllArticle:
+    desc: "記事一覧から順次記事の詳細を取得します"
+    loop: len(articles)
+    req:
+      /api/articles/{{ articles[i].slug }}:
+        get:
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 正しい記事のIDで取得できること
+      && current.res.body.article.id == articles[i].id

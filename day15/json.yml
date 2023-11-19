@@ -1,0 +1,53 @@
+desc: リクエストJSONを外部ファイル化できます
+runners:
+  req:
+    endpoint: https://zenn.dev
+    useCookie: true
+vars:
+  request: "json://scrap.json"
+  session: ${SESSION}
+steps:
+  postScrap:
+    desc: "スクラップ記事を登録します"
+    req:
+      /api/scraps:
+        post:
+          headers:
+            Cookie: "_zenn_session={{ vars.session }}"
+          body:
+            application/json: "{{ vars.request }}"
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 指定したタイトルのスクラップが作成されること
+      && current.res.body.scrap.title == vars.request.title
+    bind:
+      slug: current.res.body.scrap.slug
+  archiveScrap:
+    desc: "スクラップ記事をアーカイブします"
+    req:
+      /api/scraps/{{ slug }}:
+        put:
+          headers:
+            Cookie: "_zenn_session={{ vars.session }}"
+          body:
+            application/json:
+              scrap:
+                archived: true
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # メッセージがsuccessなこと
+      && current.res.body.message == "success"
+  deleteScrap:
+    desc: "スクラップ記事を削除します"
+    req:
+      /api/scraps/{{ slug }}:
+        delete:
+          headers:
+            Cookie: "_zenn_session={{ vars.session }}"
+          body:
+            application/json: null
+    test: |
+      # ステータスコードが204であること
+      current.res.status == 204

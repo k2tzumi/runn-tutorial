@@ -1,0 +1,31 @@
+desc: スキーマを定義する
+runners:
+  local: sq://day24/dbname.sqlite3
+steps:
+  crateTable:
+    desc: "テーブル作成"
+    local:
+      query: |
+        CREATE TABLE IF NOT EXISTS article (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            article_type TEXT,
+            body_letters_count INTEGER,
+            body_updated_at TEXT,
+            comments_count INTEGER,
+            emoji TEXT,
+            is_suspending_private INTEGER,
+            liked_count INTEGER,
+            path TEXT,
+            pinned INTEGER,
+            post_type TEXT,
+            publication TEXT,
+            published_at TEXT,
+            slug TEXT,
+            source_repo_updated_at TEXT,
+            title TEXT
+        );
+  showTables:
+    desc: "テーブル一覧を確認する"
+    if: !included
+    local:
+      query: select * from sqlite_master;

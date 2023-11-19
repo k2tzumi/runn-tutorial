@@ -1,0 +1,30 @@
+desc: ファイルアップロードする
+runners:
+  req:
+    endpoint: https://zenn.dev
+    useCookie: true
+vars:
+  session: ${SESSION}
+steps:
+  downloadFile:
+    desc: "ファイルをダウンロードしてくる"
+    exec:
+      command: curl https://static.zenn.studio/images/logo.png --output logo.png
+    test: |
+      # 実行結果が正常なこと
+      current.exit_code == 0
+  fileUpload:
+    desc: "ファイルをアップロードする"
+    req:
+      /api/me/body_markdown_images:
+        post:
+          headers:
+            Cookie: "_zenn_session={{ vars.session }}"
+          body:
+            multipart/form-data:
+              file: ../logo.png
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 201
+      # イメージURLが取得できること
+      && current.res.body.imageUrl startsWith 'https://storage.googleapis.com/zenn-user-upload/'

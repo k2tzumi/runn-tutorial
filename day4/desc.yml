@@ -1,0 +1,10 @@
+desc: Descriptionをつけて見やすくしましょう
+runners:
+  req: https://zenn.dev
+steps:
+- desc: "katzumiの記事一覧を取得します"
+  req:
+    /api/articles?username=katzumi&order=latest:
+      get:
+        body:
+          application/json: null
