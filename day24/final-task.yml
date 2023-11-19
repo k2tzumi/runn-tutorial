@@ -1,0 +1,53 @@
+desc: runnでここまで出来るというデモ
+runners:
+  req: https://zenn.dev
+  local: sq://day24/dbname.sqlite3
+  cc: chrome://new
+vars:
+  topic: "php"
+steps:
+  calcDate:
+    desc: "1週間前の時間を取得する"
+    exec:
+      command: date -v-1w -u +"%Y-%m-%dT%H:%M:%S.000+00:00" | tr -d '\n'
+    bind:
+      star_at: current.stdout
+  collectArticle:
+    desc: "最新記事を収集する"
+    loop:
+      count: 2  # 最大実行回数
+      until: |
+        # 最終公開日が1週間前よりも前なら
+        current.latest_published_at < star_at
+    include:
+      path: collect-article.yml
+      vars:
+        page: "{{ i + 1 }}"
+  makeRanking:
+    desc: "ランキングデータを作成する"
+    local:
+      query: |
+        SELECT
+            id,
+            title,
+            path,
+            article_type,
+            liked_count,
+            published_at
+        FROM
+            article
+        WHERE
+            published_at > '{{ star_at }}'
+        ORDER BY
+            liked_count DESC
+        LIMIT
+            10;
+  captchaArticle:
+    desc: "記事ページをキャプチャする"
+    loop:
+      count: 3  # 3ページ分
+    include:
+      path: capture-article.yml
+      vars:
+        path: "{{ steps.makeRanking.rows[i].path }}"
+        output: "{{ i + 1 }}"

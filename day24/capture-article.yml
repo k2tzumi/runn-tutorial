@@ -1,0 +1,25 @@
+desc: 指定された記事ページのスクリーンショットをキャプチャする
+runners:
+  cc: chrome://new
+vars:
+  path: "katzumi/articles/api-scenario-testing-with-runn"
+  output: "screenshot"
+steps:
+  viewArticle:
+    desc: "指定した記事ページを表示"
+    cc:
+      actions:
+        - navigate: "https://zenn.dev/{{ vars.path }}"
+        - waitVisible: '#__next > article'
+        - location
+    test: |
+      current.url == "https://zenn.dev/" + vars.path
+  captureArticle:
+    desc: "指定した記事ページの本文をキャプチャ"
+    cc:
+      actions:
+        - scroll: '#__next > article'
+        - screenshot
+    dump:
+      expr: current.png
+      out: '{{ vars.output }}.png'
