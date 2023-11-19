@@ -36,6 +36,9 @@ steps:
                 '{{ articles[i].article_type }}',
                 {{ articles[i].liked_count }}
             );
+    test: |
+      current.last_insert_id == articles[i].id
+      && current.rows_affected == 1
   countLiked:
     desc: "いいね数をカウントする"
     local:
