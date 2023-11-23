@@ -34,8 +34,6 @@ steps:
     req:
       /api/scraps/{{ steps.postScrap.slug }}:
         delete:
-          headers:
-            Cookie: "_zenn_session={{ vars.session }}"
           body:
             application/json: null
     test: |
