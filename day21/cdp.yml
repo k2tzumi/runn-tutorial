@@ -13,6 +13,7 @@ steps:
         - waitVisible: '#input-search-form'
         - location
     test: |
+      # locationが検索URLになること
       current.url == "https://zenn.dev/search"
   inputKeyword:
     desc: "キーワードを入力してEnter"
@@ -27,6 +28,7 @@ steps:
         - waitVisible: '#__next > div > div > section'
         - location        
     test:
+      # locationの検索URLにキーワードがセットされること
       current.url == "https://zenn.dev/search?q=" + vars.keyword
   captureScreen:
     desc: "スクリーンイメージをキャプチャする"
