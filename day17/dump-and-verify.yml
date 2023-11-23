@@ -5,7 +5,7 @@ vars:
   username: ${USER:-katzumi}
   count: 2
   order: "daily"
-  request: "json://articles.json"
+  response: "json://articles.json"
 steps:
   listArticles:
     desc: "指定された件数分、記事一覧を取得します"
@@ -20,4 +20,4 @@ steps:
       # 記事の件数が正しいこと
       && len(current.res.body.articles) == vars.count
       # dumpしたレスポンス（前回の結果）と同じこと
-      && compare(current.res.body, vars.request)
+      && compare(current.res.body, vars.response)
