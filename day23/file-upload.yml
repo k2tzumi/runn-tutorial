@@ -24,7 +24,7 @@ steps:
             multipart/form-data:
               file: ../logo.png
     test: |
-      # ステータスコードが200であること
+      # ステータスコードが201であること
       current.res.status == 201
       # イメージURLが取得できること
       && current.res.body.imageUrl startsWith 'https://storage.googleapis.com/zenn-user-upload/'
