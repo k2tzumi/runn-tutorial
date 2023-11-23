@@ -29,3 +29,6 @@ steps:
     if: !included
     local:
       query: select * from sqlite_master;
+    test: |
+      # テーブル一覧にarticleが含まれていること
+      one(current.rows, {.tbl_name == 'article'})
