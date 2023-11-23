@@ -37,7 +37,9 @@ steps:
                 {{ articles[i].liked_count }}
             );
     test: |
+      # insertされたIDが正しいこと
       current.last_insert_id == articles[i].id
+      # 影響があった行数が正しいこと
       && current.rows_affected == 1
   countLiked:
     desc: "いいね数をカウントする"
