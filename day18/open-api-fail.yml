@@ -1,4 +1,3 @@
-
 desc: OpenAPIのSpec通りにリクエストとレスポンスになっているか？チェックする
 runners:
   req:
@@ -7,7 +6,7 @@ runners:
     skipValidateRequest: false
     skipValidateResponse: false
 vars:
-  status: "available"
+  status: "avaliable"
 steps:
   findPetsByStatus:
     desc: "Finds Pets by status"
