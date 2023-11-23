@@ -28,8 +28,6 @@ steps:
     req:
       /api/scraps/{{ slug }}:
         put:
-          headers:
-            Cookie: "_zenn_session={{ vars.session }}"
           body:
             application/json:
               scrap:
@@ -44,8 +42,6 @@ steps:
     req:
       /api/scraps/{{ slug }}:
         delete:
-          headers:
-            Cookie: "_zenn_session={{ vars.session }}"
           body:
             application/json: null
     test: |
