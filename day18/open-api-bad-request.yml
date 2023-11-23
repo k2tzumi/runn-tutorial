@@ -1,0 +1,22 @@
+desc: OpenAPIのSpecを参照し、Bad Requestのテストを行う場合
+runners:
+  req:
+    endpoint: https://petstore3.swagger.io/api/v3
+    openapi3: https://petstore3.swagger.io/api/v3/openapi.json
+    skipValidateRequest: true
+    skipValidateResponse: false
+vars:
+  status: "avaliable"
+steps:
+  findPetsByStatus:
+    desc: "Finds Pets by status"
+    req:
+      /pet/findByStatus?status={{ vars.status }}:
+        get:
+          header:
+            accept: application/json
+    test: |
+      # ステータスコードが400であること
+      current.res.status == 400
+      # エラーメッセージが出力されること
+      && current.res.body.message == "Input error: query parameter `status value `avaliable` is not in the allowable values `[available, pending, sold]`"
