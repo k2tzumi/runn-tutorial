@@ -1,0 +1,13 @@
+{
+    "commentable_type": "Scrap",
+    "commentable_id": {{.steps.postScrap.scrapId }},
+    "body_markdown": "# {{.vars.topic }}ランキング
+{{$fileUpload := .steps.fileUpload}}
+{{range $i, $ranking := .steps.makeRanking.rows}}
+1. [{{$ranking.title}}]({{$ranking.path}})
+{{if eq $i 0}}![Ranking-1]({{$fileUpload.imageURL }})
+{{end}}published_at: {{$ranking.published_at}}
+liked_count: {{$ranking.liked_count}}
+{{ end }}
+"
+}

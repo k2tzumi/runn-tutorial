@@ -1,0 +1,24 @@
+desc: スクラップ投稿を行う
+runners:
+  req:
+    endpoint: https://zenn.dev
+    useCookie: true
+vars:
+  title: "タイトル"
+  session: ${SESSION}
+steps:
+  postScrap:
+    desc: "スクラップ記事を登録します"
+    req:
+      /api/scraps:
+        post:
+          headers:
+            Cookie: "_zenn_session={{ vars.session }}"
+          body:
+            application/json:
+              title: "{{ vars.title }}"
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+    bind:
+      scrapId: current.res.body.scrap.id

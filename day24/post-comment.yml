@@ -1,0 +1,26 @@
+desc: コメント投稿を行う
+runners:
+  req:
+    endpoint: https://zenn.dev
+    useCookie: true
+vars:
+  session: ${SESSION}
+  # request: "json://comment.json.template"
+  request:
+    commentable_type: "Scrap"
+    commentable_id: 61895
+    body_markdown: "test"
+if: included
+steps:
+  postComments:
+    desc: "コメントを投稿する"
+    req:
+      /api/comments:
+        post:
+          headers:
+            Cookie: "_zenn_session={{ vars.session }}"
+          body:
+            application/json: "{{ vars.request }}"
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
