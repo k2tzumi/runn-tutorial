@@ -2,9 +2,7 @@ desc: runnでここまで出来るというデモ
 runners:
   req: https://zenn.dev
   local: sq://day24/dbname.sqlite3
-  cc: chrome://new
 vars:
-  session: ${SESSION}
   topic: "php"
   imageCount: 1
 steps:
