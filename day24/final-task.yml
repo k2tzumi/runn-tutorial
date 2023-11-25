@@ -13,14 +13,14 @@ steps:
     exec:
       command: date -v-1w -u +"%Y-%m-%dT%H:%M:%S.000+00:00" | tr -d '\n'
     bind:
-      star_at: current.stdout
+      start_at: current.stdout
   collectArticle:
     desc: "最新記事を収集する"
     loop:
       count: 2  # 最大実行回数
       until: |
         # 最終公開日が1週間前よりも前なら
-        current.latest_published_at < star_at
+        current.latest_published_at < start_at
     include:
       path: collect-article.yml
       vars:
@@ -39,7 +39,7 @@ steps:
         FROM
             article
         WHERE
-            published_at > '{{ star_at }}'
+            published_at > '{{ start_at }}'
         ORDER BY
             liked_count DESC
         LIMIT
@@ -76,7 +76,7 @@ steps:
     include:
       path: post-scrap.yml
       vars:
-        title: "{{ vars.topic }}トピックの'{{ star_at }}'の週間ランキング"
+        title: "{{ vars.topic }}トピックの'{{ start_at }}'の週間ランキング"
   postComments:
     desc: "コメントを投稿する"
     include:
