@@ -1,0 +1,11 @@
+desc: 画像切り出しを行う
+vars:
+  path: "1.png"
+steps:
+  cropImage:
+    desc: "画像切り出しを行う"
+    exec:
+      command: sips -c 1080 1920 --cropOffset 50 0 {{ vars.path }}
+    test: |
+      # 実行結果が正常なこと
+      current.exit_code == 0
