@@ -6,7 +6,6 @@ runners:
 vars:
   session: ${SESSION}
   filePath: "../logo.png"
-  bindName: "imageURL"
 if: included
 steps:
   fileUpload:
@@ -25,4 +24,4 @@ steps:
       # イメージURLが取得できること
       && current.res.body.imageUrl startsWith 'https://storage.googleapis.com/zenn-user-upload/'
     bind:
-      'vars.bindName': current.res.body.imageUrl
+      imageURL: current.res.body.imageUrl

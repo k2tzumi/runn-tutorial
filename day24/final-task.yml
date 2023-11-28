@@ -69,15 +69,16 @@ steps:
       path: file-upload.yml
       vars:
         filePath: "{{ i + 1 }}.png"
-        bindName: "imageURL_{{ i }}"
+    bind:
+      "captureImage[]": steps.fileUpload.imageURL
   dumpBind:
-    dump: steps.fileUpload
+    dump: steps.fileUpload.captureImage
   postScrap:
     desc: "スクラップ記事を登録する"
     include:
       path: post-scrap.yml
       vars:
-        title: "{{ vars.topic }}トピックの'{{ start_at }}'の週間ランキング"        
+        title: "{{ vars.topic }}トピックの'{{ start_at }}'の週間ランキング"
   postComments:
     desc: "コメントを投稿する"
     include:
