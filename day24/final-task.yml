@@ -71,8 +71,6 @@ steps:
         filePath: "{{ i + 1 }}.png"
     bind:
       "captureImage[]": steps.fileUpload.imageURL
-  dumpBind:
-    dump: steps.fileUpload.captureImage
   postScrap:
     desc: "スクラップ記事を登録する"
     include:
