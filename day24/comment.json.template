@@ -2,10 +2,13 @@
     "commentable_type": "Scrap",
     "commentable_id": {{.steps.postScrap.scrapId }},
     "body_markdown": "# {{.vars.topic }}ランキング
+{{$imageCount := .vars.imageCount}}
 {{$fileUpload := .steps.fileUpload}}
 {{range $i, $ranking := .steps.makeRanking.rows}}
 1. [{{$ranking.title}}]({{$ranking.path}})
-{{if eq $i 0}}![Ranking-1]({{$fileUpload.imageURL }})
+{{if eq $i 0}}![Ranking-{{$i}}]({{$fileUpload.imageURL_0 }})
+{{else if eq $i 1}}![Ranking-{{$i}}]({{$fileUpload.imageURL_1 }})
+{{else if eq $i 2}}![Ranking-{{$i}}]({{$fileUpload.imageURL_2 }})
 {{end}}published_at: {{$ranking.published_at}}
 liked_count: {{$ranking.liked_count}}
 {{ end }}

@@ -4,7 +4,7 @@ runners:
   local: sq://day24/dbname.sqlite3
 vars:
   topic: "php"
-  imageCount: 1
+  imageCount: 3
 steps:
   calcDate:
     desc: "1週間前の時間を取得する"
@@ -69,12 +69,15 @@ steps:
       path: file-upload.yml
       vars:
         filePath: "{{ i + 1 }}.png"
+        bindName: "imageURL_{{ i }}"
+  dumpBind:
+    dump: steps.fileUpload
   postScrap:
     desc: "スクラップ記事を登録する"
     include:
       path: post-scrap.yml
       vars:
-        title: "{{ vars.topic }}トピックの'{{ start_at }}'の週間ランキング"
+        title: "{{ vars.topic }}トピックの'{{ start_at }}'の週間ランキング"        
   postComments:
     desc: "コメントを投稿する"
     include:
