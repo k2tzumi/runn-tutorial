@@ -1,0 +1,27 @@
+desc: OpenAPIのSpecのカバレッジを向上させる
+runners:
+  req:
+    endpoint: ${PETSTORE3_END_POINT:-https://petstore3.swagger.io/api/v3}
+    openapi3: https://petstore3.swagger.io/api/v3/openapi.json
+    skipValidateRequest: false
+    skipValidateResponse: false
+vars:
+  status: "pending"
+steps:
+  findPetsByStatus:
+    include:
+      path: ./open-api.yml
+      vars:
+        status: "{{ vars.status }}"
+  findPetsById:
+    desc: "Finds Pets by Id"
+    req:
+      /pet/{{ steps.findPetsByStatus.firstPetId }}:
+        get:
+          header:
+            accept: application/json
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 指定したidがレスポンスされること
+      && current.res.body.id == steps.findPetsByStatus.firstPetId
