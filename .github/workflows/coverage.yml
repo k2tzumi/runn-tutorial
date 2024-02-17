@@ -18,6 +18,11 @@ jobs:
         image: swaggerapi/petstore3:unstable
         ports:
           - 8080:8080
+        options: >-
+          --health-cmd "wget -q -t 1 --spider http://localhost:8080"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5  
     steps:
       - uses: actions/checkout@v4
       - name: Setup runn
