@@ -1,7 +1,7 @@
 desc: OpenAPIのSpec通りにリクエストとレスポンスになっているか？チェックする
 runners:
   req:
-    endpoint: ${PETSTORE3_END_POINT:-https://petstore3.swagger.io/api/v3}
+    endpoint: https://petstore3.swagger.io/api/v3
     openapi3: https://petstore3.swagger.io/api/v3/openapi.json
     skipValidateRequest: false
     skipValidateResponse: false
