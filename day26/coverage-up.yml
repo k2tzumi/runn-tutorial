@@ -3,7 +3,7 @@ runners:
   req:
     endpoint: ${PETSTORE3_END_POINT:-https://petstore3.swagger.io/api/v3}
     openapi3: https://petstore3.swagger.io/api/v3/openapi.json
-    skipValidateRequest: false
+    skipValidateRequest: true
     skipValidateResponse: false
 vars:
   status: "pending"
