@@ -1,0 +1,10 @@
+repository: ${GITHUB_REPOSITORY}/runn
+coverage:
+  if: false
+codeToTestRatio:
+  if: false
+testExecutionTime:
+  if: false
+report:
+  datastores:
+    - local://main
