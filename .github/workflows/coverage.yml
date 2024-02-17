@@ -28,7 +28,7 @@ jobs:
         run: |
           runn run --verbose day18/open-api.yml
         env:
-          HTTPBIN_END_POINT: http://172.17.0.1:8080/
+          PETSTORE3_END_POINT: http://172.17.0.1:8080/
       - name: Setup octocov-runn-coverage
         uses: k1LoW/gh-setup@v1
         with:
