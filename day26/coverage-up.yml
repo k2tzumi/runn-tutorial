@@ -13,7 +13,7 @@ steps:
       path: ./open-api.yml
       vars:
         status: "{{ vars.status }}"
-  findPetsById:
+  findPetById:
     desc: "Finds Pets by Id"
     req:
       /pet/{{ steps.findPetsByStatus.firstPetId }}:
@@ -25,3 +25,17 @@ steps:
       current.res.status == 200
       # 指定したidがレスポンスされること
       && current.res.body.id == steps.findPetsByStatus.firstPetId
+  updatePetStatusById:
+    desc: "Updates a pet in the store with form data"
+    req:
+      /pet/{{ steps.findPetsByStatus.firstPetId }}?name=steve&status=available:
+        post:
+          header:
+            accept: application/json
+          body:
+            application/json: ""
+    test: |
+      # ステータスコードが200であること
+      current.res.status == 200
+      # 指定したstatusに更新されること
+      && current.res.body.status == "available"
