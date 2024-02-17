@@ -3,7 +3,7 @@ runners:
   req:
     endpoint: ${PETSTORE3_END_POINT:-https://petstore3.swagger.io/api/v3}
     openapi3: https://petstore3.swagger.io/api/v3/openapi.json
-    skipValidateRequest: true
+    skipValidateRequest: false
     skipValidateResponse: false
 vars:
   status: "pending"
@@ -25,10 +25,10 @@ steps:
       current.res.status == 200
       # 指定したidがレスポンスされること
       && current.res.body.id == steps.findPetsByStatus.firstPetId
-  updatePetStatusById:
+  updatePetNameById:
     desc: "Updates a pet in the store with form data"
     req:
-      /pet/{{ steps.findPetsByStatus.firstPetId }}?name=steve&status=available:
+      /pet/{{ steps.findPetsByStatus.firstPetId }}?name=steve:
         post:
           header:
             accept: application/json
@@ -38,4 +38,4 @@ steps:
       # ステータスコードが200であること
       current.res.status == 200
       # 指定したstatusに更新されること
-      && current.res.body.status == "available"
+      && current.res.body.name == "steve"
