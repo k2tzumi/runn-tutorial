@@ -1,4 +1,4 @@
-desc: トレースヘッダを有効にする（ヘッダ名指定あり）
+desc: トレースヘッダを有効にする
 runners:
   req:
     endpoint: ${HTTPBIN_END_POINT:-https://httpbin.org/}
