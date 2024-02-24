@@ -6,12 +6,15 @@ runners:
 vars:
   session: ${SESSION}
 steps:
+  bindUuid:
+    desc: UUIDs are numbered in the image of a session.
+    bind:
+      uuid: faker.UUID()
   postScrap:
     desc: "スクラップ記事を登録します"
     include:
       path: post-scrap.yml
       vars:
-        title_suffix: "{{ faker.UUID() }}"
         request: "json://scrap.json.template"
   archiveScrap:
     desc: "スクラップ記事をアーカイブします"

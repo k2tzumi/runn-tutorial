@@ -7,7 +7,6 @@ vars:
   request:
     title: "タイトル"
   session: ${SESSION}
-  title_suffix: null
 steps:
   postScrap:
     desc: "スクラップ記事を登録します"
