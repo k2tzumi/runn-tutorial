@@ -1,0 +1,21 @@
+desc: トレースヘッダを有効にする（ヘッダ名指定あり）
+runners:
+  req:
+    endpoint: ${HTTPBIN_END_POINT:-https://httpbin.org/}
+    trace:
+      enable: true
+      headerName: "X-Request-Id2"
+steps:
+  step0:
+    desc: 初回ステップ
+    req:
+      /get:
+        get:
+          body: null
+    test: |
+      current.res.status == 200
+      # 指定されたヘッダ名でリクエストに付与されること
+      && current.res.body.headers["X-Request-Id2"] contains "step=0"
+  includeStep:
+    desc: インクルードのステップ
+    include: trace.yml
