@@ -7,9 +7,9 @@ vars:
   session: ${SESSION}
 steps:
   bindUuid:
-    desc: "ダミーのUUIDを発行してuiidという変数名でアクセス可能とする"
+    desc: "ダミーのUUIDを発行してtitle_suffixという変数名でアクセス可能とする"
     bind:
-      uuid: faker.UUID()
+      title_suffix: faker.UUID()
   postScrap:
     desc: "スクラップ記事を登録します"
     include:
