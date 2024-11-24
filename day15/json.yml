@@ -45,5 +45,5 @@ steps:
           body:
             application/json: null
     test: |
-      # ステータスコードが204であること
-      current.res.status == 204
+      # ステータスコードが200であること
+      current.res.status == 200
