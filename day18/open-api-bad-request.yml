@@ -16,7 +16,7 @@ steps:
           header:
             accept: application/json
     test: |
-      # ステータスコードが400であること
+      // ステータスコードが400であること
       current.res.status == 400
-      # エラーメッセージが出力されること
+      // エラーメッセージが出力されること
       && current.res.body.message == "Input error: query parameter `status value `avaliable` is not in the allowable values `[available, pending, sold]`"

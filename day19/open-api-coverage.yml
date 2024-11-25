@@ -16,9 +16,9 @@ steps:
           header:
             accept: application/json
     test: |
-      # ステータスコードが200であること
+      // ステータスコードが200であること
       current.res.status == 200
-      # ペットのステータスが正しいこと
+      // ペットのステータスが正しいこと
       && current.res.body[0].status == vars.status
   findPetById:
     desc: "Find pet by ID"
@@ -28,9 +28,9 @@ steps:
           header:
             accept: application/json
     test: |
-      # ステータスコードが200であること
+      // ステータスコードが200であること
       current.res.status == 200
-      # 指定されたIDで取得できること
+      // 指定されたIDで取得できること
       && current.res.body.id == steps.findPetsByStatus.res.body[0].id
-      # ペットのステータスが正しいこと
+      // ペットのステータスが正しいこと
       && current.res.body.status == vars.status

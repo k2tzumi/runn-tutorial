@@ -12,7 +12,7 @@ steps:
           body: null
     test: |
       current.res.status == 200
-      # X-Runn-Traceヘッダがリクエストに付与されること
+      // X-Runn-Traceヘッダがリクエストに付与されること
       && current.res.body.headers["X-Runn-Trace"] contains "step=0"
   step1:
     desc: 2回目のステップ
@@ -24,5 +24,5 @@ steps:
               foo: "bar"
     test: |
       current.res.status == 200
-      # X-Runn-Traceヘッダがリクエストに付与されること
+      // X-Runn-Traceヘッダがリクエストに付与されること
       && current.res.body.headers["X-Runn-Trace"] contains "step=1"

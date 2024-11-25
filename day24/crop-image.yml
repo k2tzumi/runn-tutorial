@@ -7,5 +7,5 @@ steps:
     exec:
       command: sips -c 1080 1920 --cropOffset 50 0 {{ vars.path }}
     test: |
-      # 実行結果が正常なこと
+      // 実行結果が正常なこと
       current.exit_code == 0

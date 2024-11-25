@@ -15,10 +15,11 @@ steps:
         get:
           header:
             accept: application/json
+            api_key: "secret"
     test: |
-      # ステータスコードが200であること
+      // ステータスコードが200であること
       current.res.status == 200
-      # ペットのステータスが正しいこと
+      // ペットのステータスが正しいこと
       && current.res.body[0].status == vars.status
     bind:
       firstPetId: current.res.body[0].id

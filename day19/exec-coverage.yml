@@ -5,6 +5,6 @@ steps:
     exec:
       command: runn coverage day19/open-api-coverage.yml
     test: |
-      # 実行結果が正常なこと
+      // 実行結果が正常なこと
       current.exit_code == 0
     dump: current.stdout

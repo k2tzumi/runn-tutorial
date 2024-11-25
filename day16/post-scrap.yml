@@ -18,9 +18,9 @@ steps:
           body:
             application/json: "{{ vars.request }}"
     test: |
-      # ステータスコードが200であること
+      // ステータスコードが200であること
       current.res.status == 200
-      # 指定したタイトルのスクラップが作成されること
+      // 指定したタイトルのスクラップが作成されること
       && current.res.body.scrap.title == vars.request.title
     bind:
       slug: current.res.body.scrap.slug

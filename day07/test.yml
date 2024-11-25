@@ -13,7 +13,7 @@ steps:
         body:
           application/json: null
   test: |
-    # ステータスコードが200であること
+    // ステータスコードが200であること
     current.res.status == 200
-    # 記事の件数が正しいこと
+    // 記事の件数が正しいこと
     && len(current.res.body.articles) == vars.count
