@@ -19,6 +19,7 @@ steps:
       /pet/{{ steps.findPetsByStatus.firstPetId }}:
         get:
           header:
+            api_key: "secret"
             accept: application/json
     test: |
       // ステータスコードが200であること
@@ -31,6 +32,7 @@ steps:
       /pet/{{ steps.findPetsByStatus.firstPetId }}?name=steve:
         post:
           header:
+            api_key: "secret"
             accept: application/json
           body:
             application/json: ""
