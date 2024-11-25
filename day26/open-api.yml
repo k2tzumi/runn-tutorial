@@ -14,6 +14,7 @@ steps:
       /pet/findByStatus?status={{ vars.status }}:
         get:
           header:
+            api_key: "secret"
             accept: application/json
     test: |
       // ステータスコードが200であること
