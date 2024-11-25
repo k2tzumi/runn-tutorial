@@ -22,5 +22,5 @@ steps:
           body:
             application/json: "{{ vars.request }}"
     test: |
-      # ステータスコードが200であること
+      // ステータスコードが200であること
       current.res.status == 200

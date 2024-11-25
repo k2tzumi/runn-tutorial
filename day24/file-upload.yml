@@ -19,9 +19,9 @@ steps:
             multipart/form-data:
               file: "{{ vars.filePath }}"
     test: |
-      # ステータスコードが201であること
+      // ステータスコードが201であること
       current.res.status == 201
-      # イメージURLが取得できること
+      // イメージURLが取得できること
       && current.res.body.imageUrl startsWith 'https://storage.googleapis.com/zenn-user-upload/'
     bind:
       imageURL: current.res.body.imageUrl

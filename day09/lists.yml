@@ -13,9 +13,9 @@ steps:
           body:
             application/json: null
     test: |
-      # ステータスコードが200であること
+      // ステータスコードが200であること
       current.res.status == 200
-      # 記事の件数が正しいこと
+      // 記事の件数が正しいこと
       && len(current.res.body.articles) == vars.count
   - desc: "1番目の記事の詳細を取得します"
     req:
@@ -24,9 +24,9 @@ steps:
           body:
             application/json: null
     test: |
-      # ステータスコードが200であること
+      // ステータスコードが200であること
       current.res.status == 200
-      # 正しい記事のIDで取得できること
+      // 正しい記事のIDで取得できること
       && steps[1].res.body.article.id == steps[0].res.body.articles[0].id
   - desc: "2番目の記事の詳細を取得します"
     req:
@@ -35,7 +35,7 @@ steps:
           body:
             application/json: null
     test: |
-      # ステータスコードが200であること
+      // ステータスコードが200であること
       current.res.status == 200
-      # 正しい記事のIDで取得できること
+      // 正しい記事のIDで取得できること
       && steps[2].res.body.article.id == steps[0].res.body.articles[1].id

@@ -21,9 +21,9 @@ steps:
           header:
             accept: application/json
     test: |
-      # ステータスコードが200であること
+      // ステータスコードが200であること
       current.res.status == 200
-      # 指定したidがレスポンスされること
+      // 指定したidがレスポンスされること
       && current.res.body.id == steps.findPetsByStatus.firstPetId
   updatePetNameById:
     desc: "Updates a pet in the store with form data"
@@ -35,7 +35,7 @@ steps:
           body:
             application/json: ""
     test: |
-      # ステータスコードが200であること
+      // ステータスコードが200であること
       current.res.status == 200
-      # 指定したstatusに更新されること
+      // 指定したstatusに更新されること
       && current.res.body.name == "steve"

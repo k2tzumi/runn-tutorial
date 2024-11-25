@@ -11,7 +11,7 @@ steps:
     exec:
       command: curl https://static.zenn.studio/images/logo.png --output logo.png
     test: |
-      # 実行結果が正常なこと
+      // 実行結果が正常なこと
       current.exit_code == 0
   fileUpload:
     desc: "ファイルをアップロードする"
@@ -24,7 +24,7 @@ steps:
             multipart/form-data:
               file: ../logo.png
     test: |
-      # ステータスコードが201であること
+      // ステータスコードが201であること
       current.res.status == 201
-      # イメージURLが取得できること
+      // イメージURLが取得できること
       && current.res.body.imageUrl startsWith 'https://storage.googleapis.com/zenn-user-upload/'

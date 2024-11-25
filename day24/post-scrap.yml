@@ -18,7 +18,7 @@ steps:
             application/json:
               title: "{{ vars.title }}"
     test: |
-      # ステータスコードが200であること
+      // ステータスコードが200であること
       current.res.status == 200
     bind:
       scrapId: current.res.body.scrap.id

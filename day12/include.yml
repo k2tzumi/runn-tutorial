@@ -13,9 +13,9 @@ steps:
           body:
             application/json: null
     test: |
-      # ステータスコードが200であること
+      // ステータスコードが200であること
       current.res.status == 200
-      # 正しい記事のIDで取得できること
+      // 正しい記事のIDで取得できること
       && steps.showFirstArticle.res.body.article.id == steps.listArticles.articles[0].id
   showSecondArticle:
     desc: "2番目の記事の詳細を取得します"
@@ -25,7 +25,7 @@ steps:
           body:
             application/json: null
     test: |
-      # ステータスコードが200であること
+      // ステータスコードが200であること
       current.res.status == 200
-      # 正しい記事のIDで取得できること
+      // 正しい記事のIDで取得できること
       && steps.showSecondArticle.res.body.article.id == steps.listArticles.articles[1].id

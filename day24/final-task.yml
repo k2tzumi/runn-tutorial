@@ -17,7 +17,7 @@ steps:
     loop:
       count: 2  # 最大実行回数
       until: |
-        # 最終公開日が1週間前よりも前なら
+        // 最終公開日が1週間前よりも前なら
         current.latest_published_at < start_at
     include:
       path: collect-article.yml
