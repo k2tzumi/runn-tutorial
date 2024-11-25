@@ -19,8 +19,8 @@ steps:
       /pet/{{ steps.findPetsByStatus.firstPetId }}:
         get:
           header:
-            apiKey: "secret"
             accept: application/json
+            api_key: "secret"
     test: |
       // ステータスコードが200であること
       current.res.status == 200
@@ -32,8 +32,8 @@ steps:
       /pet/{{ steps.findPetsByStatus.firstPetId }}?name=steve:
         post:
           header:
-            apiKey: "secret"
             accept: application/json
+            api_key: "secret"
           body:
             application/json: ""
     test: |
