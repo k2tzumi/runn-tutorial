@@ -37,13 +37,15 @@ steps:
       current.res.status == 200
       // メッセージがsuccessなこと
       && current.res.body.message == "success"
-  deleteScrap:
-    desc: "スクラップ記事を削除します"
+  closeScrap:
+    desc: "スクラップ記事をクローズします"
     req:
       /api/scraps/{{ slug }}:
-        delete:
+        put:
           body:
-            application/json: null
+            application/json:
+              scrap:
+                closed: true
     test: |
       // ステータスコードが200であること
       current.res.status == 200
